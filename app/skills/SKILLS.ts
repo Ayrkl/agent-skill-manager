@@ -31,3 +31,7 @@ export const SKILLS: Skill[] = [
     updatedAt: new Date(),
   },
 ];
+
+export function addSkill(skill: Skill) {
+  SKILLS.push(skill);
+}
