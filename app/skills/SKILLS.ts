@@ -9,7 +9,7 @@ export type Skill = {
   updatedAt: Date;
 };
 
-export const SKILLS: Skill[] = [
+export let SKILLS: Skill[] = [
   {
     id: "1",
     name: "Skill 1",
@@ -32,11 +32,12 @@ export const SKILLS: Skill[] = [
   },
 ];
 
-export function getSkills() {
+export async function getSkills() {
   return [...SKILLS];
 }
 
-export function addSkill(skill: Skill) {
+export async function addSkill(skill: Skill) {
+  await new Promise((resolve) => setTimeout(resolve, 500));
   SKILLS = [...SKILLS, skill];
-  console.log("skills update", SKILLS);
+  return getSkills();
 }

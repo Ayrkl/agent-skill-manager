@@ -5,6 +5,7 @@ export default function SkillsPage() {
   const skills = SKILLS;
   return (
     <section>
+      <Link href="/skills/create">Create Skill</Link>
       <ul>
         {skills.map((skill) => (
           <li key={skill.id}>

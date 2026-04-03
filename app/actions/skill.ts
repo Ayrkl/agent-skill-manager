@@ -16,19 +16,18 @@ export async function createSkill(prevState: any, formData: FormData) {
     return { message: "All fields are required" };
   }
 
-  // Objemizi Skill tipine tam uygun hale getiriyoruz:
   const newSkill: Skill = {
     id: Date.now().toString(),
     name,
     description,
     category,
-    level: "Beginner", // Tipin beklediği varsayılan değer
-    experience: 0, // Tipin beklediği varsayılan değer
-    createdAt: new Date(), // string değil, Date nesnesi
-    updatedAt: new Date(), // string değil, Date nesnesi
+    level: "Beginner",
+    experience: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
-  addSkill(newSkill);
+  await addSkill(newSkill);
   revalidatePath("/skills");
   redirect("/skills");
 }

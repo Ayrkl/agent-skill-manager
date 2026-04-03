@@ -1,29 +1,24 @@
-"use client";
+import { getSkills } from "../SKILLS";
 
-import { useParams } from "next/navigation";
-import { Skill, SKILLS } from "../SKILLS";
-import { useEffect, useState } from "react";
-
-export default function SkillPage() {
-  const params = useParams<{ identifier: string }>();
-  const [skills, setSkills] = useState(SKILLS);
-  const [skill, setSkill] = useState<Skill | null>(null);
-
-  useEffect(() => {
-    const foundSkill = skills.find((s) => s.id === params.identifier);
-    if (foundSkill) {
-      setSkill(foundSkill);
-    }
-  }, [params.identifier, skills]);
+export default async function SkillPage({
+  params,
+}: {
+  params: Promise<{ identifier: string }>;
+}) {
+  const skills = await getSkills();
+  const { identifier } = await params;
+  const skill = skills.find((s) => s.id === identifier);
 
   return skill ? (
-    <article>
-      <h1>{skill.name}</h1>
-      <p>{skill.description}</p>
-      <p>{skill.category}</p>
-      <p>{skill.experience}</p>
+    <article className="prose lg:prose-xl p-8">
+      <h1 className="text-3xl font-bold">{skill.name}</h1>
+      <p className="text-gray-600">{skill.description}</p>
+      <div className="mt-4">
+        <span className="badge badge-primary">{skill.category}</span>
+        <span className="ml-2">Experience: {skill.experience}</span>
+      </div>
     </article>
   ) : (
-    <div>Skill not found</div>
+    <div className="p-8 text-red-500">Skill not found</div>
   );
 }
