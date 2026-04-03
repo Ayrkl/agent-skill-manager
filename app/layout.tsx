@@ -23,15 +23,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // html'ye h-full verdik
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      {/* body'ye h-full ve flex-col ekledik */}
+      <body className="h-full flex flex-col">
         <div className="navbar bg-base-100 shadow-sm">
           <a className="btn btn-ghost text-xl">daisyUI</a>
         </div>
-        <main className="flex-1">{children}</main>
+
+        {/* main'e flex-1 vererek tüm boşluğu kaplamasını sağladık. 
+            Buraya bg-base-200 gibi bir renk eklersen tüm boşluğun o renk olduğunu göreceksin. */}
+        <main className="flex-1 bg-base-0">{children}</main>
       </body>
     </html>
   );
