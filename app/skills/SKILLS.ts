@@ -32,6 +32,11 @@ export const SKILLS: Skill[] = [
   },
 ];
 
+export function getSkills() {
+  return [...SKILLS];
+}
+
 export function addSkill(skill: Skill) {
-  SKILLS.push(skill);
+  SKILLS = [...SKILLS, skill];
+  console.log("skills update", SKILLS);
 }
