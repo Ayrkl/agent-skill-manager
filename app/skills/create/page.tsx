@@ -14,19 +14,19 @@ export default function CreateSkillPage() {
   );
 
   return (
-    <form action={formAction}>
-      <input name="name" placeholder="Name" className="input input-bordered w-full" />
+    <form action={formAction} className="p-4 max-w-md mx-auto form flex flex-col gap-4">
+      <input name="name" placeholder="Skill name" className="input input-bordered w-full" />
       <textarea
         name="description"
-        placeholder="Description"
+        placeholder="Skill Description"
         rows={3}
         className="input input-bordered w-full"
       />
-      <input name="category" placeholder="Category" className="input input-bordered w-full" />
+      <input name="category" placeholder="Skill Category" className="input input-bordered w-full" />
       <p aria-live="polite" className="text-red-500">
         {state?.message}
       </p>
-      <button disabled={pending}>{pending ? "Creating..." : "Create"}</button>
+      <button className="btn btn-primary" disabled={pending}>{pending ? "Creating..." : "Create"}</button>
     </form>
   );
 }

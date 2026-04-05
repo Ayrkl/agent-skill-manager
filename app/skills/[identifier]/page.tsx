@@ -10,7 +10,7 @@ export default async function SkillPage({
   const skill = skills.find((s) => s.id === identifier);
 
   return skill ? (
-    <article className="prose lg:prose-xl p-8">
+    <article className="max-w-md mx-auto p-4 flex flex-col gap-4">
       <h1 className="text-3xl font-bold">{skill.name}</h1>
       <p className="text-gray-600">{skill.description}</p>
       <div className="mt-4">
