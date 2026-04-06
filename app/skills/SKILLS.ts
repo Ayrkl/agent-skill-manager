@@ -33,6 +33,7 @@ export let SKILLS: Skill[] = [
 ];
 
 export async function getSkills() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return [...SKILLS];
 }
 
