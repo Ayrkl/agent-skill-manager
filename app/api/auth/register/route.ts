@@ -7,7 +7,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { email, password, name } = body;
 
-    // Validate input
     if (!email || !password || !name) {
       return NextResponse.json(
         { error: "Email, password, and name are required" },
@@ -15,10 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
       return NextResponse.json(
@@ -27,45 +23,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hash password and create user
     const hashedPassword = await hashPassword(password);
     const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        name,
-      },
+      data: { email, password: hashedPassword, name },
     });
 
-    // Generate token
-    const token = generateToken({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    });
+    const token = generateToken({ id: user.id, email: user.email, name: user.name });
 
-    // Create response with httpOnly cookie
     const response = NextResponse.json(
       {
         message: "User registered successfully",
-        user: {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        },
+        user: { id: user.id, email: user.email, name: user.name },
       },
       { status: 201 }
     );
 
-    // Set httpOnly cookie
     setAuthCookie(response, token);
-
     return response;
   } catch (error) {
     console.error("Registration error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
